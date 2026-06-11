@@ -167,7 +167,9 @@ export default function HomeClient({ data }: { data: { profile: { name: string; 
           <div className="lg:col-span-2">
             <div className="flex items-center gap-2 mb-6 lg:mb-8">
               <Zap className="w-6 h-6 text-yellow-400" />
-              <AnimatedHeading as="h2" className="text-2xl sm:text-3xl font-bold text-white">What I <span className="text-neon-blue">Do</span></AnimatedHeading>
+              <AnimatedHeading as="h2" className="text-2xl sm:text-3xl font-bold text-white">
+                <TypingAnimation text="What I Do" delay={0.1} highlight="Do" />
+              </AnimatedHeading>
             </div>
             
             <div className="grid sm:grid-cols-2 gap-4 sm:gap-6">
@@ -202,7 +204,9 @@ export default function HomeClient({ data }: { data: { profile: { name: string; 
           <div className="lg:col-span-1">
             <div className="flex items-center gap-2 mb-4 sm:mb-6 lg:mb-8">
               <Target className="w-6 h-6 text-neon-blue" />
-              <h2 className="text-2xl sm:text-3xl font-bold text-white">Current Focus</h2>
+              <h2 className="text-2xl sm:text-3xl font-bold text-white">
+                <TypingAnimation text="Current Focus" delay={0.1} highlight="Focus" />
+              </h2>
             </div>
             <p className="text-sm text-gray-400 mb-6">Building innovative solutions in:</p>
             

@@ -2,6 +2,7 @@ import { prisma } from "@/lib/prisma";
 import { Mail, MapPin, Briefcase } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { AnimatedHeading } from "@/components/ui/AnimatedHeading";
+import { TypingAnimation } from "@/components/ui/TypingAnimation";
 
 export default async function ContactSection() {
   const profile = await prisma.profileInfo.findFirst();
@@ -10,7 +11,7 @@ export default async function ContactSection() {
     <div id="contact" className="max-w-6xl mx-auto px-6 pt-32 pb-20 relative z-10 scroll-mt-20">
       <div className="space-y-4 mb-16 text-center">
         <AnimatedHeading as="h1" className="text-5xl md:text-6xl font-bold text-white tracking-tight">
-          Get in <span className="text-gradient">Touch</span>
+          <TypingAnimation text="Get in Touch" delay={0.1} highlight="Touch" />
         </AnimatedHeading>
         <p className="text-xl text-gray-400 max-w-2xl mx-auto">
           Have a project in mind? Looking to collaborate? I&apos;d love to hear from you.

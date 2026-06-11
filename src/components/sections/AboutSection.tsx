@@ -4,6 +4,7 @@ import { Badge } from "@/components/ui/badge";
 import LeetCodeCard from "@/components/LeetCodeCard";
 import GithubCalendarCard from "@/components/GithubCalendarCard";
 import { AnimatedHeading } from "@/components/ui/AnimatedHeading";
+import { TypingAnimation } from "@/components/ui/TypingAnimation";
 
 export default async function AboutSection() {
   const profile = await prisma.profileInfo.findFirst();
@@ -14,7 +15,7 @@ export default async function AboutSection() {
       <div className="grid md:grid-cols-2 gap-12 items-center">
         <div className="space-y-6">
           <AnimatedHeading as="h1" className="text-5xl md:text-6xl font-bold text-white tracking-tight">
-            About <span className="text-gradient">Me</span>
+            <TypingAnimation text="About Me" delay={0.1} highlight="Me" />
           </AnimatedHeading>
           <p className="text-lg text-gray-400 leading-relaxed text-justify">
             I build scalable web applications, intelligent software systems, and real-world digital products that solve meaningful problems. Currently serving as a Tech Associate at Invertis Innovation & Incubation, I work on product development, startup incubation projects, AI-powered solutions, and enterprise-grade software systems.
@@ -44,7 +45,7 @@ export default async function AboutSection() {
       <div className="mt-20 grid lg:grid-cols-2 gap-8 min-w-0 w-full">
         <div className="flex flex-col h-full min-w-0 w-full">
           <AnimatedHeading as="h2" className="text-3xl font-bold text-white mb-8 tracking-tight">
-            Problem Solving & <span className="text-neon-blue">DSA</span>
+            <TypingAnimation text="Problem Solving & DSA" delay={0.1} highlight="DSA" />
           </AnimatedHeading>
           <div className="flex-grow min-w-0 w-full">
             <LeetCodeCard username="alokyadav9045" />
@@ -52,7 +53,7 @@ export default async function AboutSection() {
         </div>
         <div className="flex flex-col h-full min-w-0 w-full">
           <AnimatedHeading as="h2" className="text-3xl font-bold text-white mb-8 tracking-tight">
-            Open Source & <span className="text-neon-blue">GitHub</span>
+            <TypingAnimation text="Open Source & GitHub" delay={0.1} highlight="GitHub" />
           </AnimatedHeading>
           <div className="flex-grow min-w-0 w-full">
             <GithubCalendarCard username="alokydv9045" />

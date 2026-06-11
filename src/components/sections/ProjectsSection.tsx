@@ -5,6 +5,7 @@ import { ExternalLink, GitBranch } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { AnimatedHeading } from "@/components/ui/AnimatedHeading";
+import { TypingAnimation } from "@/components/ui/TypingAnimation";
 
 export default async function ProjectsSection() {
   const projects = await prisma.project.findMany({
@@ -15,7 +16,7 @@ export default async function ProjectsSection() {
     <div id="projects" className="max-w-7xl mx-auto px-6 pt-32 relative z-10 scroll-mt-20">
       <div className="space-y-4 mb-16">
         <AnimatedHeading as="h1" className="text-5xl md:text-6xl font-bold text-white tracking-tight">
-          Featured <span className="text-gradient">Projects</span>
+          <TypingAnimation text="Featured Projects" delay={0.1} highlight="Projects" />
         </AnimatedHeading>
         <p className="text-xl text-gray-400 max-w-2xl">
           A selection of my recent work in web development, SaaS platforms, and intelligent software systems.

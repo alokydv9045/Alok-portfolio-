@@ -2,6 +2,7 @@ import { prisma } from "@/lib/prisma";
 import { GraduationCap, Calendar } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { AnimatedHeading } from "@/components/ui/AnimatedHeading";
+import { TypingAnimation } from "@/components/ui/TypingAnimation";
 
 export default async function EducationSection() {
   const educations = await prisma.education.findMany({});
@@ -10,7 +11,7 @@ export default async function EducationSection() {
     <div id="education" className="max-w-4xl mx-auto px-6 pt-32 relative z-10 scroll-mt-20">
       <div className="space-y-4 mb-16 text-center">
         <AnimatedHeading as="h1" className="text-5xl md:text-6xl font-bold text-white tracking-tight">
-          My <span className="text-gradient">Education</span>
+          <TypingAnimation text="My Education" delay={0.1} highlight="Education" />
         </AnimatedHeading>
         <p className="text-xl text-gray-400">
           My academic journey and qualifications.

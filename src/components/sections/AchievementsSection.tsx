@@ -3,6 +3,7 @@ import { Trophy, Calendar } from "lucide-react";
 import Link from "next/link";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { AnimatedHeading } from "@/components/ui/AnimatedHeading";
+import { TypingAnimation } from "@/components/ui/TypingAnimation";
 
 export default async function AchievementsSection() {
   const achievements = await prisma.achievement.findMany();
@@ -11,7 +12,7 @@ export default async function AchievementsSection() {
     <div id="achievements" className="max-w-6xl mx-auto px-6 pt-32 relative z-10 scroll-mt-20">
       <div className="space-y-4 mb-16 text-center">
         <AnimatedHeading as="h1" className="text-5xl md:text-6xl font-bold text-white tracking-tight">
-          My <span className="text-gradient">Achievements</span>
+          <TypingAnimation text="My Achievements" delay={0.1} highlight="Achievements" />
         </AnimatedHeading>
         <p className="text-xl text-gray-400 max-w-2xl mx-auto">
           Certifications, awards, and milestones.
