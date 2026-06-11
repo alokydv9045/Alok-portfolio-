@@ -69,12 +69,5 @@ To run this project locally, follow these steps:
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the live result.
 
-## 🔐 Admin Access
-To access the admin dashboard, navigate to `/admin`.
-*Default Seeded Credentials:*
-- **Email**: `admin@alokyadav.com`
-- **Password**: `admin123`
-*(Make sure to change these in production!)*
-
 ## 📄 License
 This project is open-source and available under the MIT License.
