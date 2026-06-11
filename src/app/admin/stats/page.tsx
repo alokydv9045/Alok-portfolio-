@@ -40,16 +40,16 @@ export default async function AdminStatsPage() {
           <CardTitle className="text-white">Add New Metric</CardTitle>
         </CardHeader>
         <CardContent>
-          <form action={addStat} className="flex gap-4 items-end">
-            <div className="space-y-2 flex-1">
+          <form action={addStat} className="flex flex-col sm:flex-row gap-4 items-start sm:items-end">
+            <div className="space-y-2 flex-1 w-full">
               <Label htmlFor="label" className="text-gray-300">Label (e.g. "Projects Completed")</Label>
               <Input id="label" name="label" required className="bg-black/50 border-white/10 text-white" />
             </div>
-            <div className="space-y-2 flex-1">
+            <div className="space-y-2 flex-1 w-full">
               <Label htmlFor="value" className="text-gray-300">Value (e.g. "25+")</Label>
               <Input id="value" name="value" required className="bg-black/50 border-white/10 text-white" />
             </div>
-            <Button type="submit" className="bg-neon-blue text-black hover:bg-neon-blue/80 font-bold">
+            <Button type="submit" className="bg-neon-blue text-black hover:bg-neon-blue/80 font-bold w-full sm:w-auto">
               Add
             </Button>
           </form>

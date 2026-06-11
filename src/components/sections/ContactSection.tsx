@@ -24,8 +24,8 @@ export default async function ContactSection() {
               <Mail className="w-8 h-8" />
             </div>
             <h3 className="text-xl font-bold text-white mb-2">Email</h3>
-            <a href={`mailto:${profile?.emailAddress || "admin@alokyadav.com"}`} className="text-gray-400 hover:text-neon-blue transition-colors">
-              {profile?.emailAddress || "admin@alokyadav.com"}
+            <a href={`mailto:${profile?.emailAddress || "Alokyadav83956@gmail.com"}`} className="text-gray-400 hover:text-neon-blue transition-colors">
+              {profile?.emailAddress || "Alokyadav83956@gmail.com"}
             </a>
           </CardContent>
         </Card>

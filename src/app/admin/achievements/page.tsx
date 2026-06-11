@@ -23,6 +23,7 @@ export default async function AdminAchievementsPage() {
       data: { title, description, date, issuer, link }
     });
     
+    revalidatePath("/");
     revalidatePath("/achievements");
     revalidatePath("/admin/achievements");
   }
@@ -31,6 +32,7 @@ export default async function AdminAchievementsPage() {
     "use server";
     const id = formData.get("id") as string;
     await prisma.achievement.delete({ where: { id } });
+    revalidatePath("/");
     revalidatePath("/achievements");
     revalidatePath("/admin/achievements");
   }

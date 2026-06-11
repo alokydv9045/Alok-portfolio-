@@ -12,7 +12,7 @@ import RippleGrid from "@/components/ui/RippleGrid";
 export default function HomeClient({ data }: { data: { profile: { name: string; titles: string[]; bio: string; [key: string]: unknown }; stats: { label: string; value: string; [key: string]: unknown }[] } }) {
   const { profile, stats } = data;
   return (
-    <main className="min-h-screen relative overflow-hidden pb-32">
+    <main className="min-h-screen relative overflow-hidden pb-16 lg:pb-32">
       {/* Background Ripple Grid */}
       <div className="absolute inset-0 z-0">
         <RippleGrid
@@ -29,8 +29,8 @@ export default function HomeClient({ data }: { data: { profile: { name: string; 
 
 
 
-      <div className="max-w-7xl mx-auto px-6 pt-20 relative z-10">
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 pt-12 lg:pt-20 relative z-10">
+        <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
           
           {/* Left Column - Hero Text */}
           <motion.div 
@@ -95,11 +95,11 @@ export default function HomeClient({ data }: { data: { profile: { name: string; 
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="relative w-[85%] max-w-[340px] mx-auto flex items-center justify-center order-1 lg:order-2 mb-10 lg:mb-0"
+            className="relative w-[85%] max-w-[340px] mx-auto flex items-center justify-center order-1 lg:order-2 mb-6 lg:mb-0"
           >
             <div className="absolute inset-0 bg-gradient-to-tr from-neon-blue/20 to-neon-blue/20 rounded-full blur-3xl" />
             
-            <div className="relative w-full rounded-3xl overflow-hidden border border-white/10 glass-card flex items-end justify-center bg-[#0a0f1c]">
+            <div className="relative w-full rounded-3xl overflow-hidden border border-white/10 flex items-end justify-center bg-card hover:border-neon-blue/30 transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_10px_30px_-10px_rgba(0,210,255,0.1)]">
               <Image 
                 src="/alok-3.jpeg" 
                 alt="Alok Yadav" 
@@ -109,10 +109,10 @@ export default function HomeClient({ data }: { data: { profile: { name: string; 
                 className="w-full h-auto object-cover block"
                 priority
               />
-              <div className="absolute bottom-8 glass-card p-4 rounded-xl flex items-center gap-4 w-[80%] backdrop-blur-xl border border-white/20 bg-black/40">
+              <div className="absolute bottom-3 glass-card py-2 px-4 rounded-xl flex items-center gap-3 w-[92%] backdrop-blur-xl border border-white/20 bg-black/40">
                 <div>
-                  <p className="font-semibold text-white text-sm">Tech Associate & Full Stack Developer</p>
-                  <p className="text-xs text-gray-300">Invertis Innovation & Incubation</p>
+                  <p className="font-semibold text-white text-xs sm:text-sm leading-tight">Tech Associate & Full Stack Developer</p>
+                  <p className="text-[10px] sm:text-xs text-gray-300 mt-0.5">Invertis Innovation & Incubation</p>
                 </div>
                 <div className="ml-auto w-2 h-2 bg-green-500 rounded-full animate-pulse shrink-0" />
               </div>
@@ -136,8 +136,8 @@ export default function HomeClient({ data }: { data: { profile: { name: string; 
       </div>
 
       {/* Stats Section */}
-      <div className="max-w-7xl mx-auto px-6 mt-32 relative z-10">
-        <div className="glass-card p-8 rounded-2xl grid grid-cols-2 md:grid-cols-4 gap-8 md:divide-x divide-white/10">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 mt-16 lg:mt-32 relative z-10">
+        <div className="glass-card p-4 sm:p-6 lg:p-8 rounded-2xl grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8 md:divide-x divide-white/10">
           {stats.map((stat: { label: string; value: string; [key: string]: unknown }, index: number) => {
             const colors = [
               "bg-neon-blue/10 text-neon-blue",
@@ -160,17 +160,17 @@ export default function HomeClient({ data }: { data: { profile: { name: string; 
       </div>
 
       {/* Services & Focus Grid */}
-      <div className="max-w-7xl mx-auto px-6 mt-32 relative z-10">
-        <div className="grid lg:grid-cols-3 gap-12">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 mt-16 lg:mt-32 relative z-10">
+        <div className="grid lg:grid-cols-3 gap-8 lg:gap-12">
           
           {/* What I Do */}
           <div className="lg:col-span-2">
-            <div className="flex items-center gap-2 mb-8">
+            <div className="flex items-center gap-2 mb-6 lg:mb-8">
               <Zap className="w-6 h-6 text-yellow-400" />
-              <AnimatedHeading as="h2" className="text-3xl font-bold text-white">What I <span className="text-neon-blue">Do</span></AnimatedHeading>
+              <AnimatedHeading as="h2" className="text-2xl sm:text-3xl font-bold text-white">What I <span className="text-neon-blue">Do</span></AnimatedHeading>
             </div>
             
-            <div className="grid sm:grid-cols-2 gap-6">
+            <div className="grid sm:grid-cols-2 gap-4 sm:gap-6">
               {[
                 { title: "Full Stack Web Development", icon: <Layout className="w-6 h-6" />, color: "text-blue-400" },
                 { title: "SaaS Product Development", icon: <Code className="w-6 h-6" />, color: "text-purple-400" },
@@ -187,7 +187,7 @@ export default function HomeClient({ data }: { data: { profile: { name: string; 
                   viewport={{ once: true }}
                   transition={{ delay: i * 0.1 }}
                   key={i} 
-                  className="glass-card p-6 flex flex-col items-center justify-center text-center gap-4 hover:border-white/20 cursor-pointer group"
+                  className="glass-card p-4 sm:p-6 flex flex-col items-center justify-center text-center gap-3 sm:gap-4 hover:border-white/20 cursor-pointer group"
                 >
                   <div className={`w-14 h-14 rounded-full bg-white/5 flex items-center justify-center ${service.color} group-hover:scale-110 transition-transform`}>
                     {service.icon}
@@ -200,9 +200,9 @@ export default function HomeClient({ data }: { data: { profile: { name: string; 
 
           {/* Current Focus */}
           <div className="lg:col-span-1">
-            <div className="flex items-center gap-2 mb-8">
+            <div className="flex items-center gap-2 mb-4 sm:mb-6 lg:mb-8">
               <Target className="w-6 h-6 text-neon-blue" />
-              <h2 className="text-3xl font-bold text-white">Current Focus</h2>
+              <h2 className="text-2xl sm:text-3xl font-bold text-white">Current Focus</h2>
             </div>
             <p className="text-sm text-gray-400 mb-6">Building innovative solutions in:</p>
             

@@ -19,6 +19,7 @@ export default async function AdminSkillsPage() {
       data: { name, category: category || "Other" }
     });
     
+    revalidatePath("/");
     revalidatePath("/skills");
     revalidatePath("/about");
     revalidatePath("/admin/skills");
@@ -28,6 +29,7 @@ export default async function AdminSkillsPage() {
     "use server";
     const id = formData.get("id") as string;
     await prisma.techSkill.delete({ where: { id } });
+    revalidatePath("/");
     revalidatePath("/skills");
     revalidatePath("/about");
     revalidatePath("/admin/skills");

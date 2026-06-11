@@ -1,8 +1,19 @@
+"use client";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { GitBranch, Briefcase, Hash, Mail, Eye } from "lucide-react";
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
+  const router = useRouter();
+
+  const handleAdminClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    const isConfirmed = window.confirm("You are entering the Admin Panel. Do you want to continue?");
+    if (isConfirmed) {
+      router.push("/admin");
+    }
+  };
 
   return (
     <footer className="w-full border-t border-white/10 bg-[#060913] relative z-20 mt-auto">
@@ -27,7 +38,7 @@ export default function Footer() {
             <Link href="https://twitter.com/alokyadav" target="_blank" className="w-10 h-10 rounded-full glass-card flex items-center justify-center text-gray-400 hover:text-[#1d9bf0] hover:border-[#1d9bf0]/50 transition-colors">
               <Hash className="w-5 h-5" />
             </Link>
-            <Link href="mailto:admin@alokyadav.com" className="w-10 h-10 rounded-full glass-card flex items-center justify-center text-gray-400 hover:text-neon-blue hover:border-neon-blue/50 transition-colors">
+            <Link href="mailto:Alokyadav83956@gmail.com" className="w-10 h-10 rounded-full glass-card flex items-center justify-center text-gray-400 hover:text-neon-blue hover:border-neon-blue/50 transition-colors">
               <Mail className="w-5 h-5" />
             </Link>
           </div>
@@ -42,9 +53,9 @@ export default function Footer() {
             <Link href="/education" className="hover:text-gray-300 transition-colors">Education</Link>
             <Link href="/experience" className="hover:text-gray-300 transition-colors">Experience</Link>
             <Link href="/contact" className="hover:text-gray-300 transition-colors">Contact</Link>
-            <Link href="/admin" className="p-1.5 rounded-full hover:bg-white/10 text-gray-500 hover:text-neon-blue transition-colors ml-2" title="Admin Access">
+            <button onClick={handleAdminClick} className="p-1.5 rounded-full hover:bg-white/10 text-gray-500 hover:text-neon-blue transition-colors ml-2" title="Admin Access">
               <Eye className="w-4 h-4" />
-            </Link>
+            </button>
           </div>
         </div>
       </div>

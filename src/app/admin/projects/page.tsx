@@ -28,6 +28,7 @@ export default async function AdminProjectsPage() {
       data: { title, description, imageUrl, liveLink, githubLink, techStack, detailedOverview, keyFeatures } as any
     });
     
+    revalidatePath("/");
     revalidatePath("/projects");
     revalidatePath("/admin/projects");
   }
@@ -36,6 +37,7 @@ export default async function AdminProjectsPage() {
     "use server";
     const id = formData.get("id") as string;
     await prisma.project.delete({ where: { id } });
+    revalidatePath("/");
     revalidatePath("/projects");
     revalidatePath("/admin/projects");
   }

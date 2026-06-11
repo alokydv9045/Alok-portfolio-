@@ -24,6 +24,7 @@ export default async function AdminExperiencePage() {
       data: { role, company, startDate, endDate, description, current }
     });
     
+    revalidatePath("/");
     revalidatePath("/experience");
     revalidatePath("/admin/experience");
   }
@@ -32,6 +33,7 @@ export default async function AdminExperiencePage() {
     "use server";
     const id = formData.get("id") as string;
     await prisma.experience.delete({ where: { id } });
+    revalidatePath("/");
     revalidatePath("/experience");
     revalidatePath("/admin/experience");
   }
