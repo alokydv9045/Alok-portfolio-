@@ -7,6 +7,10 @@ import { AnimatedHeading } from "@/components/ui/AnimatedHeading";
 import { Badge } from "@/components/ui/badge";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import type { Metadata } from "next";
+import Script from "next/script";
+
+const siteUrl = "https://alokyadav.me";
 
 export async function generateStaticParams() {
   const projects = await prisma.project.findMany();
@@ -14,6 +18,48 @@ export async function generateStaticParams() {
     id: project.id,
   }));
 }
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}): Promise<Metadata> {
+  const { id } = await params;
+  const project = await prisma.project.findUnique({ where: { id } });
+  if (!project) return { title: "Project Not Found" };
+
+  const description = project.description.slice(0, 160);
+  const image = project.imageUrl || `${siteUrl}/portfolio-screenshot.png`;
+  const url = `${siteUrl}/projects/${id}`;
+
+  return {
+    title: project.title,
+    description,
+    alternates: { canonical: url },
+    keywords: [
+      project.title,
+      ...project.techStack,
+      "Alok Yadav",
+      "Full Stack Developer",
+      "Portfolio Project",
+    ],
+    openGraph: {
+      title: `${project.title} | Alok Yadav`,
+      description,
+      url,
+      type: "website",
+      images: [{ url: image, width: 1200, height: 630, alt: project.title }],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${project.title} | Alok Yadav`,
+      description,
+      images: [image],
+    },
+  };
+}
+
+
 
 export default async function ProjectDetailPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
@@ -27,11 +73,33 @@ export default async function ProjectDetailPage({ params }: { params: Promise<{ 
 
   const projectData = project as any;
 
+  const projectSchema = {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    name: project.title,
+    description: project.description,
+    applicationCategory: "WebApplication",
+    author: {
+      "@type": "Person",
+      name: "Alok Yadav",
+      url: siteUrl,
+    },
+    url: project.liveLink || `${siteUrl}/projects/${project.id}`,
+    image: project.imageUrl || `${siteUrl}/portfolio-screenshot.png`,
+    keywords: project.techStack.join(", "),
+  };
+
   return (
     <div className="bg-[#0A101E] min-h-screen text-white selection:bg-neon-blue/30 selection:text-white">
+      <Script
+        id={`schema-project-${project.id}`}
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(projectSchema) }}
+      />
       <Navbar />
       <main className="pt-32 pb-20 px-6 relative z-10">
         <div className="max-w-5xl mx-auto space-y-12">
+
           {/* Back Button */}
           <Link href="/#projects" className="inline-flex items-center text-gray-400 hover:text-neon-blue transition-colors group">
             <ArrowLeft className="w-5 h-5 mr-2 group-hover:-translate-x-1 transition-transform" />
