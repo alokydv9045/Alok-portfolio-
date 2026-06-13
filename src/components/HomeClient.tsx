@@ -101,7 +101,7 @@ export default function HomeClient({ data }: { data: { profile: { name: string; 
             
             <div className="relative w-full rounded-3xl overflow-hidden border border-white/10 flex items-end justify-center bg-card hover:border-neon-blue/30 transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_10px_30px_-10px_rgba(0,210,255,0.1)]">
               <Image 
-                src="/alok-3.jpeg" 
+                src="/alok-namecard.jpeg" 
                 alt="Alok Yadav" 
                 width={1135}
                 height={1600}
