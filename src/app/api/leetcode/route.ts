@@ -1,5 +1,8 @@
 import { NextResponse } from 'next/server';
 
+// Force this route to always run dynamically — never statically cached by Next.js
+export const dynamic = 'force-dynamic';
+
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
   const username = searchParams.get('username') || 'alokyadav9045';
@@ -30,10 +33,12 @@ export async function GET(request: Request) {
     // Add status so frontend component doesn't fail its check
     data.status = "success";
     
-    return NextResponse.json(data);
+    const response = NextResponse.json(data);
+    response.headers.set('Cache-Control', 'no-store, no-cache, must-revalidate');
+    return response;
   } catch (error) {
     // Graceful fallback if the Heroku API is 503 or failing
-    return NextResponse.json({
+    const fallback = NextResponse.json({
       status: "success",
       totalSolved: 87,
       totalQuestions: 3958,
@@ -46,5 +51,7 @@ export async function GET(request: Request) {
       acceptanceRate: 88.36,
       ranking: 1717889,
     });
+    fallback.headers.set('Cache-Control', 'no-store, no-cache, must-revalidate');
+    return fallback;
   }
 }

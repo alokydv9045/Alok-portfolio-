@@ -25,7 +25,7 @@ export default function LeetCodeCard({ username = "alokyadav9045" }: { username?
   useEffect(() => {
     async function fetchStats() {
       try {
-        const res = await fetch(`/api/leetcode?username=${username}`);
+        const res = await fetch(`/api/leetcode?username=${username}`, { cache: 'no-store' });
         const data = await res.json();
         if (data.status === "success") {
           setStats(data);
