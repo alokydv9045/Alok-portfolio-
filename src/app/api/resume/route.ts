@@ -26,16 +26,15 @@ export async function GET() {
       );
     }
 
-    const pdfBuffer = await response.arrayBuffer();
+    // Serve the file as a downloadable PDF with correct headers by streaming the body directly
+    const headers = new Headers();
+    headers.set("Content-Type", "application/pdf");
+    headers.set("Content-Disposition", 'attachment; filename="Alok_Yadav_Resume.pdf"');
+    headers.set("Cache-Control", "public, max-age=3600, s-maxage=3600");
 
-    // Serve the file as a downloadable PDF with correct headers
-    return new NextResponse(pdfBuffer, {
+    return new Response(response.body, {
       status: 200,
-      headers: {
-        "Content-Type": "application/pdf",
-        "Content-Disposition": 'attachment; filename="Alok_Yadav_Resume.pdf"',
-        "Cache-Control": "public, max-age=3600, s-maxage=3600",
-      },
+      headers,
     });
   } catch (error) {
     console.error("Resume download error:", error);
