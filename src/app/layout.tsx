@@ -4,7 +4,8 @@ import "./globals.css";
 import FloatingContact from "@/components/FloatingContact";
 import Script from "next/script";
 import { Toaster } from "react-hot-toast";
-
+import SmoothScrolling from "@/components/SmoothScrolling";
+import { Analytics } from "@vercel/analytics/next";
 const outfit = Outfit({
   variable: "--font-outfit",
   subsets: ["latin"],
@@ -170,9 +171,12 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }}
         />
-        {children}
+        <SmoothScrolling>
+          {children}
+        </SmoothScrolling>
         <Toaster position="bottom-right" />
         <FloatingContact />
+        <Analytics />
       </body>
     </html>
   );
