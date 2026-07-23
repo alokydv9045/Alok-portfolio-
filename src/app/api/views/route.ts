@@ -9,7 +9,7 @@ export async function GET() {
       where: { slug: 'global' },
     });
     
-    return NextResponse.json({ count: pageView?.count || 0, status: 'success' });
+    return NextResponse.json({ count: pageView?.count || 500, status: 'success' });
   } catch {
     return NextResponse.json(
       { error: 'Failed to fetch view count', status: 'error' },
@@ -23,7 +23,7 @@ export async function POST() {
     const updatedView = await prisma.pageView.upsert({
       where: { slug: 'global' },
       update: { count: { increment: 1 } },
-      create: { slug: 'global', count: 1 },
+      create: { slug: 'global', count: 501 },
     });
     
     return NextResponse.json({ count: updatedView.count, status: 'success' });
