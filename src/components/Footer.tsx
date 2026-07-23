@@ -3,6 +3,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { Mail, Eye } from "lucide-react";
 import { GithubIcon, LinkedinIcon, TwitterIcon } from "@/components/icons";
+import VisitorCounter from "./VisitorCounter";
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
@@ -42,7 +43,9 @@ export default function Footer() {
             <Link href="mailto:Alokyadav83956@gmail.com" className="w-10 h-10 rounded-full glass-card flex items-center justify-center text-gray-400 hover:text-neon-blue hover:border-neon-blue/50 transition-colors">
               <Mail className="w-5 h-5" />
             </Link>
+            <VisitorCounter />
           </div>
+
         </div>
         
         <div className="mt-8 pt-8 border-t border-white/10 flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-gray-500">

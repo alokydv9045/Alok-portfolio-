@@ -105,3 +105,9 @@ model Education {
   description String?
   grade       String?
 }
+
+model PageView {
+  id    String @id @default(auto()) @map("_id") @db.ObjectId
+  slug  String @unique // "global" for total site views
+  count Int    @default(0)
+}
