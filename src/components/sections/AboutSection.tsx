@@ -1,4 +1,4 @@
-import { prisma } from "@/lib/prisma";
+import { profileInfo, techSkills } from "@/data/portfolio";
 import Image from "next/image";
 import { Badge } from "@/components/ui/badge";
 import LeetCodeCard from "@/components/LeetCodeCard";
@@ -6,9 +6,8 @@ import GithubCalendarCard from "@/components/GithubCalendarCard";
 import { AnimatedHeading } from "@/components/ui/AnimatedHeading";
 import { TypingAnimation } from "@/components/ui/TypingAnimation";
 
-export default async function AboutSection() {
-  const profile = await prisma.profileInfo.findFirst();
-  const techSkills = await prisma.techSkill.findMany();
+export default function AboutSection() {
+  const profile = profileInfo;
 
   return (
     <div id="about" className="max-w-6xl mx-auto px-6 pt-20 relative z-10 scroll-mt-20">
@@ -18,7 +17,7 @@ export default async function AboutSection() {
             <TypingAnimation text="About Me" delay={0.1} highlight="Me" />
           </AnimatedHeading>
           <p className="text-lg text-gray-400 leading-relaxed text-justify">
-            I build scalable web applications, intelligent software systems, and real-world digital products that solve meaningful problems. Currently serving as a Tech Associate at Invertis Innovation & Incubation, I work on product development, startup incubation projects, AI-powered solutions, and enterprise-grade software systems.
+            {profile?.bio || "I build scalable web applications, intelligent software systems, and real-world digital products that solve meaningful problems."}
           </p>
           
 

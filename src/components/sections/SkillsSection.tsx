@@ -1,11 +1,10 @@
-import { prisma } from "@/lib/prisma";
+import { techSkills } from "@/data/portfolio";
 import { Badge } from "@/components/ui/badge";
 import SkillsGrid from "./SkillsGrid";
 import { AnimatedHeading } from "@/components/ui/AnimatedHeading";
 import { TypingAnimation } from "@/components/ui/TypingAnimation";
 
 export default async function SkillsSection() {
-  const techSkills = await prisma.techSkill.findMany();
 
   const groupedSkills = techSkills.reduce((acc, skill) => {
     const category = skill.category || "Other";

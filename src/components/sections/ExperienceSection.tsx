@@ -1,11 +1,10 @@
-import { prisma } from "@/lib/prisma";
+import { experiences } from "@/data/portfolio";
 import { Briefcase, Calendar } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { AnimatedHeading } from "@/components/ui/AnimatedHeading";
 import { TypingAnimation } from "@/components/ui/TypingAnimation";
 
-export default async function ExperienceSection() {
-  const experiences = await prisma.experience.findMany({});
+export default function ExperienceSection() {
 
   return (
     <div id="experience" className="max-w-4xl mx-auto px-6 pt-32 relative z-10 scroll-mt-20">

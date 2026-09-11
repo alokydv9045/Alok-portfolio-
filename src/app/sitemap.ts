@@ -1,9 +1,9 @@
 import { MetadataRoute } from "next";
-import { prisma } from "@/lib/prisma";
+import { projects } from "@/data/portfolio";
 
 const siteUrl = "https://alokyadav.me";
 
-export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+export default function sitemap(): MetadataRoute.Sitemap {
   // Static pages
   const staticPages: MetadataRoute.Sitemap = [
     {
@@ -57,20 +57,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   ];
 
   // Dynamic project pages
-  let projectPages: MetadataRoute.Sitemap = [];
-  try {
-    const projects = await prisma.project.findMany({
-      select: { id: true },
-    });
-    projectPages = projects.map((project) => ({
-      url: `${siteUrl}/projects/${project.id}`,
-      lastModified: new Date(),
-      changeFrequency: "monthly" as const,
-      priority: 0.8,
-    }));
-  } catch {
-    // If DB unavailable during build, skip dynamic pages
-  }
+  const projectPages: MetadataRoute.Sitemap = projects.map((project) => ({
+    url: `${siteUrl}/projects/${project.id}`,
+    lastModified: new Date(),
+    changeFrequency: "monthly" as const,
+    priority: 0.8,
+  }));
 
   return [...staticPages, ...projectPages];
 }

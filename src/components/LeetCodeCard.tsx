@@ -1,9 +1,9 @@
 'use client';
 
+import { useEffect, useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Trophy, Target, Loader2 } from "lucide-react";
 import Link from "next/link";
-import { useEffect, useState } from "react";
 
 interface LeetCodeStats {
   totalSolved: number;
@@ -19,52 +19,37 @@ interface LeetCodeStats {
 }
 
 export default function LeetCodeCard({ username = "alokyadav9045" }: { username?: string }) {
-  const [stats, setStats] = useState<LeetCodeStats | null>(null);
+  const [data, setData] = useState<LeetCodeStats | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    async function fetchStats() {
+    const fetchStats = async () => {
       try {
-        const res = await fetch(`/api/leetcode?username=${username}`, { cache: 'no-store' });
-        const data = await res.json();
-        if (data.status === "success") {
-          setStats(data);
-        } else {
-          setStats({
-            totalSolved: 87, totalQuestions: 3958,
-            easySolved: 40, totalEasy: 949,
-            mediumSolved: 35, totalMedium: 2067,
-            hardSolved: 12, totalHard: 942,
-            acceptanceRate: 88.36, ranking: 1717889,
+        const res = await fetch(`/api/leetcode?username=${username}`);
+        const json = await res.json();
+        if (json.status === "success") {
+          setData({
+            totalSolved: json.totalSolved,
+            totalQuestions: json.totalQuestions,
+            easySolved: json.easySolved,
+            totalEasy: json.totalEasy,
+            mediumSolved: json.mediumSolved,
+            totalMedium: json.totalMedium,
+            hardSolved: json.hardSolved,
+            totalHard: json.totalHard,
+            acceptanceRate: json.acceptanceRate,
+            ranking: json.ranking,
           });
         }
-      } catch {
-        setStats({
-          totalSolved: 87, totalQuestions: 3958,
-          easySolved: 40, totalEasy: 949,
-          mediumSolved: 35, totalMedium: 2067,
-          hardSolved: 12, totalHard: 942,
-          acceptanceRate: 88.36, ranking: 1717889,
-        });
+      } catch (error) {
+        console.error("Failed to fetch LeetCode stats:", error);
       } finally {
         setLoading(false);
       }
-    }
+    };
 
     fetchStats();
-    
-    // Refresh every 5 minutes for real-time tracking
-    const interval = setInterval(fetchStats, 5 * 60 * 1000);
-    return () => clearInterval(interval);
   }, [username]);
-
-  const data = stats || {
-    totalSolved: 0, totalQuestions: 0,
-    easySolved: 0, totalEasy: 0,
-    mediumSolved: 0, totalMedium: 0,
-    hardSolved: 0, totalHard: 0,
-    acceptanceRate: 0, ranking: 0,
-  };
 
   return (
     <Link href={`https://leetcode.com/${username}/`} target="_blank" className="block w-full h-full">
@@ -72,45 +57,39 @@ export default function LeetCodeCard({ username = "alokyadav9045" }: { username?
         <div className="absolute top-0 right-0 w-32 h-32 bg-orange-500/10 rounded-full blur-3xl -mr-10 -mt-10 group-hover:bg-orange-500/20 transition-all" />
         
         <CardHeader className="flex flex-col sm:flex-row items-start sm:items-center justify-between pb-2 relative z-10 gap-4 sm:gap-0">
-          <div className="flex items-center gap-3 w-full sm:w-auto">
-            <div className="p-2 bg-orange-500/10 rounded-lg text-orange-500 flex items-center justify-center shrink-0">
-              <svg viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
-                <path d="M16.102 17.93l-2.697 2.607c-.466.467-1.111.662-1.823.662s-1.357-.195-1.824-.662l-4.332-4.363c-.467-.467-.702-1.15-.702-1.863s.235-1.396.702-1.863l4.332-4.363c.467-.467 1.112-.662 1.824-.662s1.357.195 1.823.662l2.697 2.606c.514.515 1.365.497 1.9-.038.535-.536.553-1.387.039-1.901l-2.609-2.636c-1.111-1.11-2.646-1.577-4.343-1.577s-3.232.467-4.343 1.577l-4.332 4.363c-1.112 1.111-1.579 2.647-1.579 4.344s.467 3.233 1.579 4.344l4.332 4.363c1.111 1.111 2.646 1.577 4.343 1.577s3.232-.466 4.343-1.577l2.609-2.636c.514-.514.496-1.365-.039-1.901-.535-.535-1.386-.553-1.9-.038z" />
-                <path d="M20.915 11.284l-6.845-1.332c-.524-.103-1.037.243-1.14.767-.103.524.243 1.036.767 1.14l6.845 1.332c.524.102 1.037-.243 1.14-.767.102-.524-.243-1.037-.767-1.14z" />
-              </svg>
+          <div className="flex items-center gap-4 w-full sm:w-auto">
+            <div className="flex items-center justify-center shrink-0">
+              <img src="/leetcode.png" alt="LeetCode" className="w-16 h-16 sm:w-20 sm:h-20 object-contain bg-white rounded-2xl p-1.5 drop-shadow-[0_0_12px_rgba(255,165,0,0.6)]" />
             </div>
             <div className="min-w-0">
               <CardTitle className="text-lg sm:text-xl text-white flex items-center gap-2 truncate">
                 LeetCode Stats
+                {!loading && (
+                  <div className="flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-green-500/10 text-green-400 text-[10px] sm:text-xs font-medium border border-green-500/20 ml-1">
+                    <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse"></span>
+                    Live
+                  </div>
+                )}
               </CardTitle>
-              <div className="flex items-center gap-2">
-                <p className="text-xs sm:text-sm text-gray-400 truncate">@{username}</p>
-                <div className="flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-green-500/10 text-green-400 text-[10px] font-medium border border-green-500/20">
-                  <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse"></span>
-                  Live
-                </div>
-              </div>
+              <p className="text-xs sm:text-sm text-gray-400 truncate">@{username}</p>
             </div>
           </div>
-          <div className="flex sm:flex-col items-center sm:items-end justify-between w-full sm:w-auto bg-white/5 sm:bg-transparent p-2 sm:p-0 rounded-lg sm:rounded-none">
-            {loading ? <Loader2 className="w-4 h-4 animate-spin text-orange-500" /> : (
-              <>
-                <div className="text-xs sm:text-sm text-gray-400 flex items-center gap-1">
-                  <Trophy className="w-3 h-3 sm:w-4 sm:h-4 text-yellow-500" /> Rank
-                </div>
-                <div className="text-sm sm:text-base font-bold text-white tracking-tight">{data.ranking.toLocaleString()}</div>
-              </>
-            )}
-          </div>
+          {data && (
+            <div className="flex sm:flex-col items-center sm:items-end justify-between w-full sm:w-auto bg-white/5 sm:bg-transparent p-2 sm:p-0 rounded-lg sm:rounded-none">
+              <div className="text-xs sm:text-sm text-gray-400 flex items-center gap-1">
+                <Trophy className="w-3 h-3 sm:w-4 sm:h-4 text-yellow-500" /> Rank
+              </div>
+              <div className="text-sm sm:text-base font-bold text-white tracking-tight">{data.ranking.toLocaleString()}</div>
+            </div>
+          )}
         </CardHeader>
         
         <CardContent className="relative z-10 pt-4 flex-grow flex flex-col justify-center">
           {loading ? (
-            <div className="flex flex-col items-center justify-center h-full min-h-[160px] space-y-4">
-              <Loader2 className="w-8 h-8 animate-spin text-orange-500 opacity-50" />
-              <p className="text-sm text-gray-400">Fetching live stats...</p>
-            </div>
-          ) : (
+             <div className="flex justify-center items-center h-40">
+               <Loader2 className="w-8 h-8 text-orange-500 animate-spin opacity-50" />
+             </div>
+          ) : data ? (
             <>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 mb-6">
                 <div className="bg-black/40 rounded-xl p-3 sm:p-4 border border-white/5">
@@ -155,7 +134,56 @@ export default function LeetCodeCard({ username = "alokyadav9045" }: { username?
                   </div>
                 </div>
               </div>
+
+              {/* Badges Section */}
+              <div className="mt-6 pt-6 border-t border-white/10">
+                <div className="flex items-start justify-between mb-6">
+                  <div>
+                    <div className="text-gray-400 text-xs font-medium uppercase tracking-wider">Badges</div>
+                    <div className="text-white mt-1 text-2xl font-bold">4</div>
+                  </div>
+                  <div className="p-2 bg-white/5 rounded-full hover:bg-white/10 transition-colors">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor" className="h-5 w-5 text-gray-400">
+                      <path fillRule="evenodd" d="M18.586 13H3a1 1 0 110-2h15.586L12 4.414A1 1 0 0113.414 3l8.293 8.293a.997.997 0 01-.003 1.417L13.414 21A1 1 0 0112 19.586L18.586 13z" clipRule="evenodd"></path>
+                    </svg>
+                  </div>
+                </div>
+                
+                <div className="flex items-center justify-center gap-6 mb-4">
+                  <div className="h-14 w-14 group-hover:scale-110 transition-transform duration-300">
+                    <img 
+                      alt="50 Days Badge" 
+                      className="h-full w-full object-contain drop-shadow-[0_0_10px_rgba(255,165,0,0.4)]" 
+                      src="https://assets.leetcode.com/static_assets/others/50_1080_1080.png" 
+                    />
+                  </div>
+                  <div className="h-20 w-20 group-hover:scale-110 transition-transform duration-300 z-10">
+                    <img 
+                      alt="100 Days Badge" 
+                      className="h-full w-full object-contain drop-shadow-[0_0_15px_rgba(255,165,0,0.6)]" 
+                      src="https://assets.leetcode.com/static_assets/others/100_1080_1080.png" 
+                    />
+                  </div>
+                  <div className="h-14 w-14 group-hover:scale-110 transition-transform duration-300">
+                    <img 
+                      alt="Aug LeetCoding Challenge" 
+                      className="h-full w-full object-contain drop-shadow-[0_0_10px_rgba(255,165,0,0.4)]" 
+                      src="https://assets.leetcode.com/static_assets/public/images/badges/2024/gif/2024-08.gif" 
+                      onError={(e) => { e.currentTarget.src = 'https://assets.leetcode.com/static_assets/public/images/badges/dcc-2023-8.png' }}
+                    />
+                  </div>
+                </div>
+                
+                <div className="text-center">
+                  <div className="text-gray-400 text-xs uppercase tracking-wider">Most Recent Badge</div>
+                  <div className="text-orange-400 text-sm font-semibold mt-1">100 Days Badge 2026</div>
+                </div>
+              </div>
             </>
+          ) : (
+             <div className="flex justify-center items-center h-40 text-gray-400">
+               Could not load LeetCode data.
+             </div>
           )}
         </CardContent>
       </Card>

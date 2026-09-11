@@ -1,13 +1,10 @@
-import { prisma } from "@/lib/prisma";
 import { Mail, MapPin } from "lucide-react";
 import { LinkedinIcon } from "@/components/icons";
 import { Card, CardContent } from "@/components/ui/card";
 import { AnimatedHeading } from "@/components/ui/AnimatedHeading";
 import { TypingAnimation } from "@/components/ui/TypingAnimation";
 
-export default async function ContactSection() {
-  const profile = await prisma.profileInfo.findFirst();
-
+export default function ContactSection() {
   return (
     <div id="contact" className="max-w-6xl mx-auto px-6 pt-32 pb-20 relative z-10 scroll-mt-20">
       <div className="space-y-4 mb-16 text-center">

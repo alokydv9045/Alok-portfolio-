@@ -1,21 +1,11 @@
 "use client";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { Mail, Eye } from "lucide-react";
+import { Mail } from "lucide-react";
 import { GithubIcon, LinkedinIcon, TwitterIcon } from "@/components/icons";
 import VisitorCounter from "./VisitorCounter";
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
-  const router = useRouter();
-
-  const handleAdminClick = (e: React.MouseEvent) => {
-    e.preventDefault();
-    const isConfirmed = window.confirm("You are entering the Admin Panel. Do you want to continue?");
-    if (isConfirmed) {
-      window.location.href = "/admin";
-    }
-  };
 
   return (
     <footer className="w-full border-t border-white/10 bg-[#060913] relative z-20 mt-auto">
@@ -57,9 +47,6 @@ export default function Footer() {
             <Link href="/education" className="hover:text-gray-300 transition-colors">Education</Link>
             <Link href="/experience" className="hover:text-gray-300 transition-colors">Experience</Link>
             <Link href="/contact" className="hover:text-gray-300 transition-colors">Contact</Link>
-            <button onClick={handleAdminClick} className="p-1.5 rounded-full hover:bg-white/10 text-gray-500 hover:text-neon-blue transition-colors ml-2" title="Admin Access">
-              <Eye className="w-4 h-4" />
-            </button>
           </div>
         </div>
       </div>

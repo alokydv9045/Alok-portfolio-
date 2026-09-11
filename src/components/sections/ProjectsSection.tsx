@@ -1,4 +1,4 @@
-import { prisma } from "@/lib/prisma";
+import { projects } from "@/data/portfolio";
 import Image from "next/image";
 import Link from "next/link";
 import { ExternalLink, GitBranch } from "lucide-react";
@@ -7,10 +7,9 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { AnimatedHeading } from "@/components/ui/AnimatedHeading";
 import { TypingAnimation } from "@/components/ui/TypingAnimation";
 
-export default async function ProjectsSection() {
-  const projects = await prisma.project.findMany({
-    orderBy: { featured: 'desc' }
-  });
+export default function ProjectsSection() {
+  // Sort projects if needed, currently featured first
+  const sortedProjects = [...projects].sort((a, b) => (a.featured === b.featured ? 0 : a.featured ? -1 : 1));
 
   return (
     <div id="projects" className="max-w-7xl mx-auto px-6 pt-32 relative z-10 scroll-mt-20">
@@ -23,13 +22,13 @@ export default async function ProjectsSection() {
         </p>
       </div>
 
-      {projects.length === 0 ? (
+      {sortedProjects.length === 0 ? (
         <div className="text-center py-20 glass-card rounded-3xl">
           <AnimatedHeading as="h2" className="text-2xl text-gray-400">No projects added yet.</AnimatedHeading>
         </div>
       ) : (
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {projects.map((project) => (
+          {sortedProjects.map((project) => (
             <Card key={project.id} className="bg-white/5 border-white/10 hover:border-neon-blue/50 transition-colors group overflow-hidden flex flex-col h-full">
               {project.imageUrl && (
                 <Link href={`/projects/${project.id}`} className="relative w-full h-48 overflow-hidden block">

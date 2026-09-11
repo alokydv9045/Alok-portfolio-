@@ -1,11 +1,10 @@
-import { prisma } from "@/lib/prisma";
+import { educations } from "@/data/portfolio";
 import { GraduationCap, Calendar } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { AnimatedHeading } from "@/components/ui/AnimatedHeading";
 import { TypingAnimation } from "@/components/ui/TypingAnimation";
 
-export default async function EducationSection() {
-  const educations = await prisma.education.findMany({});
+export default function EducationSection() {
 
   return (
     <div id="education" className="max-w-4xl mx-auto px-6 pt-32 relative z-10 scroll-mt-20">

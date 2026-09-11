@@ -1,4 +1,4 @@
-import { prisma } from "@/lib/prisma";
+import { profileInfo, stats } from "@/data/portfolio";
 import HomeClient from "@/components/HomeClient";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -11,25 +11,11 @@ import AchievementsSection from "@/components/sections/AchievementsSection";
 import ContactSection from "@/components/sections/ContactSection";
 import CtaSection from "@/components/sections/CtaSection";
 
-export const revalidate = 60; // Revalidate every 60 seconds
-
-export default async function Page() {
-  const profileInfo = await prisma.profileInfo.findFirst();
-  const stats = await prisma.stat.findMany();
+export default function Page() {
 
   const data = {
-    profile: profileInfo || {
-      name: "Alok Yadav",
-      titles: ["Full Stack Developer", "Tech Associate", "Startup Builder"],
-      bio: "I build scalable web applications, intelligent software systems, and real-world digital products that solve meaningful problems.",
-      heroImage: "/alok-2.jpeg",
-    },
-    stats: stats.length > 0 ? stats : [
-      { label: "Projects Built", value: "50+", icon: "Layout" },
-      { label: "Technologies", value: "10+", icon: "Code" },
-      { label: "Hours of Coding", value: "1000+", icon: "Zap" },
-      { label: "Startup Solutions", value: "5+", icon: "Rocket" },
-    ]
+    profile: profileInfo,
+    stats: stats
   };
 
   return (

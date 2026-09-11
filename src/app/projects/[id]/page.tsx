@@ -1,4 +1,4 @@
-import { prisma } from "@/lib/prisma";
+import { projects } from "@/data/portfolio";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -13,7 +13,6 @@ import Script from "next/script";
 const siteUrl = "https://alokyadav.me";
 
 export async function generateStaticParams() {
-  const projects = await prisma.project.findMany();
   return projects.map((project) => ({
     id: project.id,
   }));
@@ -25,7 +24,7 @@ export async function generateMetadata({
   params: Promise<{ id: string }>;
 }): Promise<Metadata> {
   const { id } = await params;
-  const project = await prisma.project.findUnique({ where: { id } });
+  const project = projects.find(p => p.id === id);
   if (!project) return { title: "Project Not Found" };
 
   const description = project.description.slice(0, 160);
@@ -63,9 +62,7 @@ export async function generateMetadata({
 
 export default async function ProjectDetailPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
-  const project = await prisma.project.findUnique({
-    where: { id }
-  });
+  const project = projects.find(p => p.id === id);
 
   if (!project) {
     notFound();

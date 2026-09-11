@@ -1,12 +1,11 @@
-import { prisma } from "@/lib/prisma";
+import { achievements } from "@/data/portfolio";
 import { Trophy, Calendar } from "lucide-react";
 import Link from "next/link";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { AnimatedHeading } from "@/components/ui/AnimatedHeading";
 import { TypingAnimation } from "@/components/ui/TypingAnimation";
 
-export default async function AchievementsSection() {
-  const achievements = await prisma.achievement.findMany();
+export default function AchievementsSection() {
 
   return (
     <div id="achievements" className="max-w-6xl mx-auto px-6 pt-32 relative z-10 scroll-mt-20">

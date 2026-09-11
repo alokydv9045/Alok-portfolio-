@@ -9,7 +9,9 @@ import { AnimatedHeading } from "@/components/ui/AnimatedHeading";
 import { TypingAnimation } from "@/components/ui/TypingAnimation";
 import RippleGrid from "@/components/ui/RippleGrid";
 
-export default function HomeClient({ data }: { data: { profile: { name: string; titles: string[]; bio: string; [key: string]: unknown }; stats: { label: string; value: string; [key: string]: unknown }[] } }) {
+import { ProfileInfo, Stat } from "@/data/portfolio";
+
+export default function HomeClient({ data }: { data: { profile: ProfileInfo; stats: Stat[] } }) {
   const { profile, stats } = data;
   const { scrollY } = useScroll();
   const iconOpacity = useTransform(scrollY, [0, 300], [1, 0]);
@@ -75,7 +77,7 @@ export default function HomeClient({ data }: { data: { profile: { name: string; 
 
             <div className="text-gray-400 space-y-4 max-w-lg leading-relaxed text-justify">
               <p>
-                I build scalable web applications, intelligent software systems, and real-world digital products that solve meaningful problems. Currently serving as a Tech Associate at Invertis Innovation & Incubation, I work on product development, startup incubation projects, AI-powered solutions, and enterprise-grade software systems.
+                {profile.bio || "I build scalable web applications, intelligent software systems, and real-world digital products that solve meaningful problems."}
               </p>
             </div>
 
@@ -83,7 +85,7 @@ export default function HomeClient({ data }: { data: { profile: { name: string; 
               <Link href="#projects" className="bg-gradient-to-r from-neon-blue to-neon-blue text-white px-8 py-3 rounded-full font-medium flex items-center gap-2 hover:shadow-[0_0_20px_rgba(0,210,255,0.4)] transition-all">
                 View My Work <ArrowRight className="w-4 h-4" />
               </Link>
-              <a href="/api/resume.pdf" download="Alok_Yadav_Resume.pdf" className="glass-card px-8 py-3 rounded-full font-medium flex items-center gap-2 hover:bg-white/5 transition-all text-white">
+              <a href="/Alok_Yadav_Resume.pdf" download="Alok_Yadav_Resume.pdf" className="glass-card px-8 py-3 rounded-full font-medium flex items-center gap-2 hover:bg-white/5 transition-all text-white">
                 Download Resume <Download className="w-4 h-4" />
               </a>
             </div>
@@ -143,7 +145,7 @@ export default function HomeClient({ data }: { data: { profile: { name: string; 
       {/* Stats Section */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 mt-16 lg:mt-32 relative z-10">
         <div className="glass-card p-4 sm:p-6 lg:p-8 rounded-2xl grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8 md:divide-x divide-white/10">
-          {stats.map((stat: { label: string; value: string; [key: string]: unknown }, index: number) => {
+          {stats.map((stat, index: number) => {
             const colors = [
               "bg-neon-blue/10 text-neon-blue",
               "bg-neon-blue/10 text-neon-blue",
